@@ -1,0 +1,33 @@
+start:
+ifr '0' m0
+ifr '1' m1
+acc
+
+m0:
+wr 'b'
+l1:
+right
+ifr '0' l1
+ifr '1' l1
+left
+ifr '0' goto next
+rej
+
+m1:
+wr 'b'
+l2:
+right
+ifr '0' l2
+ifr '1' l2
+left
+ifr '1' goto next
+rej
+
+next:
+wr 'b'
+l3:
+left
+ifr '0' l3
+ifr '1' l3
+right
+goto start

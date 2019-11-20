@@ -22,37 +22,39 @@ label:
 
 ### Instructions
 
-1. Accept
+1. Accept (Instantly accepts)
 
 ```assembly
 acc
 
 ```
 
-2. Reject
+2. Reject (Instantly rejects)
 
 ```assembly
 rej
 ```
 
-3. Right/Left, moves the head of the TM to the Right/Left
+3. Right (Moves the head of the TM to the Right)
 
-```
+```assembly
 right
 ```
 
-```
+4. Left (Moves the head of the TM to the Left)
+
+```assembly
 left
 ```
 
-4. Goto `label`
+5. Goto `label` (Starts executing from the label)
 
-```
+```assembly
 goto divCheck
 ```
 
-5. If Reading `symbol`, go to `label`
+6. If Reading `symbol`, go to `label` (Starts executing from the label if the head points to the symbol)
 
-```
+```assembly
 ifr '0' read0
 ```

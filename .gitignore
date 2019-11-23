@@ -3,6 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=python
 *.out
 .idea/
+parsetab.py
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

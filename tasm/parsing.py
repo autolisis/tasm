@@ -29,7 +29,7 @@ def p_statement(p):
 
 
 def p_labelledStatement(p):
-    '''labelledStatement : label unlabelledStatement'''
+    'labelledStatement : label unlabelledStatement'
     if not labels.get(p[1]):
         labels[p[1]] = p.lineno(2)
     else:
@@ -50,37 +50,37 @@ def p_unlabelledStatement(p):
 
 
 def p_acceptStatement(p):
-    '''acceptStatement : accept'''
+    'acceptStatement : accept'
     p[0] = {'stmt': p[1], 'lineno': p.lineno(1)}
 
 
 def p_reject(p):
-    '''rejectStatement : reject'''
+    'rejectStatement : reject'
     p[0] = {'stmt': p[1], 'lineno': p.lineno(1)}
 
 
 def p_writeStatement(p):
-    '''writeStatement : wr symbol'''
+    'writeStatement : wr symbol'
     p[0] = {'stmt': p[1], 'lineno': p.lineno(1), 'sym': p[2]}
 
 
 def p_right(p):
-    '''moveStatement : right'''
+    'moveStatement : right'
     p[0] = {'stmt': p[1], 'lineno': p.lineno(1)}
 
 
 def p_left(p):
-    '''moveStatement : left'''
+    'moveStatement : left'
     p[0] = {'stmt': p[1], 'lineno': p.lineno(1)}
 
 
 def p_jumpStatement(p):
-    '''jumpStatement : goto destlabel'''
+    'jumpStatement : goto destlabel'
     p[0] = {'stmt': p[1], 'lineno': p.lineno(1), 'destlabel': p[2]}
 
 
 def p_ifrStatement(p):
-    '''ifrStatement : ifr symbol destlabel'''
+    'ifrStatement : ifr symbol destlabel'
     p[0] = {'stmt': p[1], 'lineno': p.lineno(
         1), 'sym': p[2], 'destlabel': p[3]}
 

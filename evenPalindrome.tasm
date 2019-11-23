@@ -1,3 +1,4 @@
+# This program finds whether a given binary string of even length is a palindrome
 start:
 ifr '0' m0
 ifr '1' m1
@@ -10,7 +11,7 @@ right
 ifr '0' l1
 ifr '1' l1
 left
-ifr '0' goto next
+ifr '0' next
 rej
 
 m1:
@@ -20,7 +21,7 @@ right
 ifr '0' l2
 ifr '1' l2
 left
-ifr '1' goto next
+ifr '1' next
 rej
 
 next:
@@ -28,6 +29,6 @@ wr 'b'
 l3:
 left
 ifr '0' l3
-ifr '1' l3
+IFR '1' l3
 right
 goto start

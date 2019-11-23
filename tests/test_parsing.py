@@ -2,10 +2,6 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 import pytest
-import mock
-from pytest_mock import mocker
-from functional import seq
-from fn import _
 
 from tasm import parsing
 from tasm.stmt import stmt

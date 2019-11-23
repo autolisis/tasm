@@ -8,10 +8,6 @@ from os import path
 
 
 class TestLexing:
-    # @classmethod
-    # def setup_class(self):
-    #     self.savedLexer = lexing.lexer.clone()
-
     def setup_method(self, method):
         self.lexer = lexing.getLexer()
 

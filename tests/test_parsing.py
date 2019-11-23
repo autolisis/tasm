@@ -66,6 +66,7 @@ class TestParsing:
         referencedLabels = set()
         for st in result['statements']:
             try:
+                assert isinstance(st, stmt.Statement)
                 referencedLabels.add(st.destlabel)
             except AttributeError:
                 pass

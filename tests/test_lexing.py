@@ -1,8 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-import mock
-from pytest_mock import mocker
 
 from tasm import lexing
 import ply.lex
@@ -32,7 +30,7 @@ class TestLexing:
         output = [tok for tok in self.lexer]
         assert len(output) == 0
 
-    def test_program(self, mocker):
+    def test_program(self):
         p = path.relpath('./data/evenPalindrome.tasm')
         with open(p) as f:
             self.lexer.input(f.read())

@@ -1,0 +1,18 @@
+{
+  "letters": [
+    "0"
+  ],
+  "states": [
+    "init"
+  ],
+  "transitions": [
+    {
+      "moveDirection": "R",
+      "newLetter": "0",
+      "newState": "accept",
+      "oldState": "init",
+      "readLetter": "0"
+    }
+  ],
+  "initialState": "init"
+}

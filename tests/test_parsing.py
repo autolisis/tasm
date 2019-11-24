@@ -5,9 +5,16 @@ import pytest
 
 from tasm import parsing
 from tasm.stmt import stmt
-import ply.lex
-from os import path
 
+import os
+from contextlib import contextmanager
+@contextmanager
+def getFile(filename, *args, **kwargs):
+    rootPath = os.popen('git rev-parse --show-toplevel').read().strip()
+    path = os.path.join(rootPath, 'tests', 'data', filename)
+    f = open(path, *args, **kwargs)
+    yield f
+    f.close()
 
 class TestParsing:
     @classmethod
@@ -54,8 +61,7 @@ class TestParsing:
             stmt='ifr', lineno=1, sym='0', destlabel='ad')
 
     def test_program(self):
-        p = path.relpath('./data/evenPalindrome.tasm')
-        with open(p) as f:
+        with getFile('evenPalindrome.tasm') as f:
             result = self.helpParse(f.read())
 
         def getReferencedLabel(st):

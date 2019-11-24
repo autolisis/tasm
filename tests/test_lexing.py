@@ -4,7 +4,16 @@
 
 from tasm import lexing
 import ply.lex
-from os import path
+
+import os
+from contextlib import contextmanager
+@contextmanager
+def getFile(filename, *args, **kwargs):
+    rootPath = os.popen('git rev-parse --show-toplevel').read().strip()
+    path = os.path.join(rootPath, 'tests', 'data', filename)
+    f = open(path, *args, **kwargs)
+    yield f
+    f.close()
 
 
 class TestLexing:
@@ -27,8 +36,7 @@ class TestLexing:
         assert len(output) == 0
 
     def test_program(self):
-        p = path.relpath('./data/evenPalindrome.tasm')
-        with open(p) as f:
+        with getFile('evenPalindrome.tasm') as f:
             self.lexer.input(f.read())
         output = [tok for tok in self.lexer]
         assert len(output) == 54 and [

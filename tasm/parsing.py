@@ -15,10 +15,7 @@ instructions = {}
 def p_program(p):
     '''program : program statement
                | statement'''
-    if len(p) == 3:
-        p[0] = {'statements': statements, 'labels': labels}
-    else:
-        p[0] = {'statements': statements, 'labels': labels}
+    p[0] = {'statements': statements, 'labels': labels}
 
 
 def p_statement(p):
@@ -81,8 +78,12 @@ def p_jumpStatement(p):
 
 def p_ifrStatement(p):
     'ifrStatement : ifr symbol destlabel'
-    p[0] = {'stmt': p[1], 'lineno': p.lineno(
-        1), 'sym': p[2], 'destlabel': p[3]}
+    p[0] = {
+        'stmt': p[1],
+        'lineno': p.lineno(1),
+        'sym': p[2],
+        'destlabel': p[3]
+    }
 
 
 def p_error(p):

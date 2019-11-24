@@ -1,18 +1,25 @@
 {
   "letters": [
-    "0"
+    "#"
   ],
   "states": [
-    "init"
+    "init", "accept", "acc1"
   ],
   "transitions": [
     {
       "moveDirection": "R",
-      "newLetter": "0",
+      "newLetter": "#",
       "newState": "accept",
       "oldState": "init",
-      "readLetter": "0"
-    }
+      "readLetter": "#"
+    },
+    {
+      "moveDirection": "R",
+      "newLetter": "#",
+      "newState": "acc1",
+      "oldState": "init",
+      "readLetter": "#"
+    },
   ],
   "initialState": "init"
 }

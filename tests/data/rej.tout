@@ -1,0 +1,11 @@
+{
+  "letters": [
+    "#"
+  ],
+  "states": [
+    "accept",
+    "rej1"
+  ],
+  "transitions": [],
+  "initialState": "rej1"
+}

@@ -9,8 +9,7 @@ from tasm.tm import TM
 from functools import reduce
 import operator
 
-def helpParse(code):
-    return p.parse(code, tracking=True, lexer=self.lexer)
+b = 0
 
 
 class Compiler:
@@ -50,16 +49,29 @@ class Compiler:
             l[st.lineno] = st
         return parsed
 
+    @staticmethod
+    def addStatement(tm, stmt):
+        newTM = stmt.getTM()
+        for state in newTM.states:
+            tm.addState(state)
+        for trans in newTM.transitions:
+            tm.addTransition(trans)
+
     def compile(self, code):
         parsed = self.parse(code)
+        if not parsed:
+            return
         parsed = self.getSymbols(parsed)
         parsed = self.resolveLabels(parsed)
         parsed = self.getLines(parsed)
-        # reduce(operator.add, parsed['lines'].values(), TM())
-        t = TM()
-        for (lineno, statement) in parsed['lines'].items():
-            __import__('pdb').set_trace()
-            t += statement
-            global b
-            b = b + 1 if b < 100 else breakpoint()
-        return t
+        if not parsed['lines']:
+            return
+        firstStatement = sorted(parsed['lines'].items())[0]
+        currentTM = firstStatement[1].getTM()
+        first = True
+        for (lineno, statement) in sorted(parsed['lines'].items()):
+            if first:
+                first = False
+                continue
+            addStatement(currentTM, statement)
+        return currentTM

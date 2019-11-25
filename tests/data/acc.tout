@@ -3,23 +3,17 @@
     "#"
   ],
   "states": [
-    "init", "accept", "acc1"
+    "acc1",
+    "accept"
   ],
   "transitions": [
     {
-      "moveDirection": "R",
-      "newLetter": "#",
+      "oldState": "acc1",
+      "readLetter": "*",
       "newState": "accept",
-      "oldState": "init",
-      "readLetter": "#"
-    },
-    {
-      "moveDirection": "R",
-      "newLetter": "#",
-      "newState": "acc1",
-      "oldState": "init",
-      "readLetter": "#"
-    },
+      "newLetter": "*",
+      "moveDirection": "R"
+    }
   ],
-  "initialState": "init"
+  "initialState": "acc1"
 }

@@ -2,18 +2,16 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 from enum import Enum, auto
+from tasm.tm import TM
 
 
-def st():
-    global TM
-    from tasm.tm import TM
-    TM = TM
+def Transition(**kwargs):
+    return kwargs
 
 
 class stmt:
     class Statement:
         def __init__(self, **kwargs):
-            st()
             self.lineno = kwargs['lineno']
 
         def __repr__(self):
@@ -25,26 +23,41 @@ class stmt:
                 return self.__dict__ == other.__dict__
             return False
 
-        def tm(self, tok='init'):
-            return TM(initialState=f'{tok}{self.lineno}',
-                      states=['accept', f'{tok}{self.lineno}'])
-
     class Accept(Statement):
         tok = 'acc'
 
         def __init__(self, **kwargs):
             super().__init__(**kwargs)
 
-        def tm(self):
-            tm = super().tm(self.tok)
-            tm.addTransition({'newState': 'accept', 'moveDirection': 'R'})
-            return tm
+        def getTM(self):
+            init = f'{self.tok}{self.lineno}'
+            return TM(
+                initialState=init,
+                states=['accept', init],
+                transitions=[
+                    Transition(
+                        oldState=init,
+                        readLetter='*',
+                        newState='accept',
+                        newLetter='*',
+                        moveDirection='R',
+                    ),
+                ],
+            )
 
     class Reject(Statement):
         tok = 'rej'
 
         def __init__(self, **kwargs):
             super().__init__(**kwargs)
+
+        def getTM(self):
+            init = f'{self.tok}{self.lineno}'
+            return TM(
+                initialState=init,
+                states=['accept', init],
+                transitions=[],
+            )
 
     class Write(Statement):
         tok = 'wr'

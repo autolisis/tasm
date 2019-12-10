@@ -1,0 +1,27 @@
+{
+  "letters": [
+    "#"
+  ],
+  "initialState": "wr1",
+  "states": [
+    "wr1",
+    "wr1$",
+    "wr1@1"
+  ],
+  "transitions": [
+    {
+      "oldState": "wr1",
+      "readLetter": "*",
+      "newState": "wr1@1",
+      "newLetter": "0",
+      "moveDirection": "R"
+    },
+    {
+      "oldState": "wr1@1",
+      "readLetter": "*",
+      "newState": "wr1$",
+      "newLetter": "*",
+      "moveDirection": "L"
+    }
+  ]
+}

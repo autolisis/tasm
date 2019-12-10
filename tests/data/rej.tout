@@ -3,7 +3,6 @@
     "#"
   ],
   "states": [
-    "accept",
     "rej1"
   ],
   "transitions": [],

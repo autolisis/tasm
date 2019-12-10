@@ -16,14 +16,17 @@ class TM:
 
     def __init__(self,
                  *,
-                 initialState,
+                 initialState=initState,
                  letters=['#'],
                  states=[initState, acceptState],
                  transitions=[]):
         self.letters = letters
         self.initialState = initialState
         self.states = list(sorted(set(states)))
-        self.transitions = [k for k, g in groupby(sorted(transitions))]
+        self.transitions = [
+            k for k, g in groupby(
+                sorted(transitions, key=lambda i: json.dumps(i)))
+        ]
 
     def __repr__(self):
         items = ("%s = %r" % (k, v) for k, v in self.__dict__.items())
@@ -50,4 +53,7 @@ class TM:
         trans['newLetter'] = trans.get('newLetter', '*')
         trans['readLetter'] = trans.get('readLetter', '*')
         self.transitions.append(trans)
-        self.transitions = [k for k, g in groupby(sorted(transitions))]
+        self.transitions = [
+            k for k, g in groupby(
+                sorted(transitions, key=lambda i: json.dumps(i)))
+        ]

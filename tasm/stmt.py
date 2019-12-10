@@ -29,11 +29,11 @@ class stmt:
         def __init__(self, **kwargs):
             super().__init__(**kwargs)
 
-        def getTM(self):
+        def getTM(self, parsed):
             init = f'{self.tok}{self.lineno}'
             return TM(
                 initialState=init,
-                states=['accept', init],
+                states=[init, 'accept'],
                 transitions=[
                     Transition(
                         oldState=init,
@@ -55,7 +55,7 @@ class stmt:
             init = f'{self.tok}{self.lineno}'
             return TM(
                 initialState=init,
-                states=['accept', init],
+                states=[init],
                 transitions=[],
             )
 
@@ -65,6 +65,31 @@ class stmt:
         def __init__(self, **kwargs):
             super().__init__(**kwargs)
             self.sym = kwargs['sym']
+
+        def getTM(self):
+            init = f'{self.tok}{self.lineno}'
+            tmp = init + '@' + '1'
+            end = init + '$'
+            return TM(
+                initialState=init,
+                states=[init, tmp, end],
+                transitions=[
+                    Transition(
+                        oldState=init,
+                        readLetter='*',
+                        newState=tmp,
+                        newLetter=self.sym,
+                        moveDirection='R',
+                    ),
+                    Transition(
+                        oldState=tmp,
+                        readLetter='*',
+                        newState=end,
+                        newLetter='*',
+                        moveDirection='L',
+                    ),
+                ],
+            )
 
     class Left(Statement):
         tok = 'left'

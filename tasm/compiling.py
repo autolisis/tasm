@@ -49,9 +49,8 @@ class Compiler:
             l[st.lineno] = st
         return parsed
 
-    @staticmethod
-    def addStatement(tm, stmt):
-        newTM = stmt.getTM()
+    def addStatement(self, tm, stmt, parsed):
+        newTM = stmt.getTM(parsed=parsed)
         for state in newTM.states:
             tm.addState(state)
         for trans in newTM.transitions:
@@ -66,12 +65,14 @@ class Compiler:
         parsed = self.getLines(parsed)
         if not parsed['lines']:
             return
-        firstStatement = sorted(parsed['lines'].items())[0]
-        currentTM = firstStatement[1].getTM()
-        first = True
+        self.parsed = parsed
+        prevTM = TM()
+        tms = [prevTM]
         for (lineno, statement) in sorted(parsed['lines'].items()):
-            if first:
-                first = False
-                continue
-            addStatement(currentTM, statement)
+            currentTM = statement.getTM(parsed=self.parsed)
+            # prevTM.addTransition(
+            # prevTM.initialState + '$'
+            tms.append(currentTM)
+            self.prevTM = currentTM
+            self.addStatement(currentTM, statement, parsed)
         return currentTM

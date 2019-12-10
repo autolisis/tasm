@@ -8,6 +8,8 @@ from tasm.stmt import stmt
 
 import os
 from contextlib import contextmanager
+
+
 @contextmanager
 def getFile(filename, *args, **kwargs):
     rootPath = os.popen('git rev-parse --show-toplevel').read().strip()
@@ -15,6 +17,7 @@ def getFile(filename, *args, **kwargs):
     f = open(path, *args, **kwargs)
     yield f
     f.close()
+
 
 class TestParsing:
     @classmethod
@@ -42,14 +45,18 @@ class TestParsing:
     def test_ifr_validLabel(self):
         result = self.helpParse("ad:\nifr '0' ad")
         assert len(result['statements']) == 1
-        assert result['statements'][0] == stmt.new(
-            stmt='ifr', lineno=2, sym='0', destlabel='ad')
+        assert result['statements'][0] == stmt.new(stmt='ifr',
+                                                   lineno=2,
+                                                   sym='0',
+                                                   destlabel='ad')
 
     def test_ifr_reusedLabel(self):
         result = self.helpParse("ad:\nifr '0' ad\nad:\nright")
         assert len(result['statements']) == 2
-        assert result['statements'][0] == stmt.new(
-            stmt='ifr', lineno=2, sym='0', destlabel='ad')
+        assert result['statements'][0] == stmt.new(stmt='ifr',
+                                                   lineno=2,
+                                                   sym='0',
+                                                   destlabel='ad')
 
     def test_ifr_invalidLabel(self):
         result = self.helpParse("ifr '0' ad")
@@ -57,8 +64,10 @@ class TestParsing:
         assert not result['labels']
         assert result['statements']
         assert len(result['statements']) == 1
-        assert result['statements'][0] == stmt.new(
-            stmt='ifr', lineno=1, sym='0', destlabel='ad')
+        assert result['statements'][0] == stmt.new(stmt='ifr',
+                                                   lineno=1,
+                                                   sym='0',
+                                                   destlabel='ad')
 
     def test_program(self):
         with getFile('evenPalindrome.tasm') as f:
@@ -69,6 +78,7 @@ class TestParsing:
                 return st.destlabel
             except AttributeError:
                 pass
+
         referencedLabels = set()
         for st in result['statements']:
             try:
